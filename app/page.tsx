@@ -1,65 +1,77 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
+import Script from "next/script";
+import { useRef } from "react";
+import type { NaverMapInstance } from "@/types/naver";
+
+const NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_MAP_CLIENT_ID;
+
+const HOT_PLACES = [
+  { id: 1, name: "강남역 다이소", lat: 37.498085, lng: 127.028001 },
+  { id: 2, name: "강남 CGV", lat: 37.501552, lng: 127.026315 },
+];
+
+const Home = () => {
+  const mapElementRef = useRef<HTMLDivElement | null>(null);
+
+  if (!NAVER_CLIENT_ID) {
+    return <div>NAVER 지도 클라이언트 ID가 설정되지 않았습니다.</div>;
+  }
+
+  const createMarkers = (map: NaverMapInstance) => {
+    // 지도가 없으면 즉시 종료 (Early Return)
+    if (!map) return;
+
+    HOT_PLACES.forEach((place) => {
+      new window.naver.maps.Marker({
+        position: new window.naver.maps.LatLng(place.lat, place.lng),
+        map,
+        title: place.name,
+        icon: {
+          url: "/images/Katsu.png", // 아까 만든 돈까스 이미지 경로
+          size: new window.naver.maps.Size(60, 60), // 보여줄 크기
+          scaledSize: new window.naver.maps.Size(60, 60), // 이미지 리사이징
+          anchor: new window.naver.maps.Point(20, 20), // 아이콘의 중심점을 좌표에 일치시킴
+        },
+      });
+    });
+  };
+
+  const handleScriptLoad = () => {
+    if (!mapElementRef.current) return;
+    if (typeof window === "undefined") return;
+    if (!window.naver || !window.naver.maps) return;
+
+    const center = new window.naver.maps.LatLng(37.4979, 127.0276);
+
+    const map = new window.naver.maps.Map(mapElementRef.current, {
+      center,
+      zoom: 15,
+    });
+
+    createMarkers(map);
+  };
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main
+      style={{
+        width: "100vw",
+        height: "100vh",
+        margin: 0,
+        padding: 0,
+      }}
+    >
+      <Script
+        src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${NAVER_CLIENT_ID}`}
+        strategy="afterInteractive"
+        onLoad={handleScriptLoad}
+      />
+      <div
+        ref={mapElementRef}
+        style={{ width: "100%", height: "100%" }}
+      />
+    </main>
   );
-}
+};
+
+export default Home;
