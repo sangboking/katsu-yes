@@ -19,4 +19,8 @@
 - type은 interface로 선언한다.
 
 ## 5. 반드시 지켜줘
--  <Srcript> 태그에서 https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId= 이걸 절대로 바꾸지말것.
+- NaverMap.tsx파일의 <Srcript> 태그에서 https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId= 이걸 절대로 바꾸지말것.
+- 패키지 설치시 pnpm을 사용한다.
+
+## 6.css
+- css는 tailwindcss를 사용한다.
