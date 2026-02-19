@@ -49,7 +49,7 @@ const PlaceInfoModal = () => {
   }
 
   return (
-    <div className="fixed top-0 left-0 w-[370px] h-screen bg-white shadow-lg z-[1000] flex flex-col overflow-y-auto scrollbar-gutter-stable">
+    <div className="fixed top-0 left-0 w-[390px] h-screen bg-white shadow-lg z-[1000] flex flex-col overflow-y-auto scrollbar-gutter-stable">
       <button
         onClick={closeModal}
         className="absolute top-5 right-5 bg-transparent border-none text-2xl cursor-pointer z-10"

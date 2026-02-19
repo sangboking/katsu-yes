@@ -1,36 +1,23 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Katsu-Yes: 돈까스 맛집 지도
 
-## Getting Started
+## 📜 프로젝트 소개
 
-First, run the development server:
+`Katsu-Yes`는 Naver Map API를 기반으로 한 돈까스 맛집 정보 제공 애플리케이션입니다. 사용자는 지도에서 돈까스 가게의 위치를 확인하고, 상세 정보를 볼 수 있으며, 별도의 로그인 없이 자유롭게 리뷰를 작성할 수 있습니다.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+**주요 기능:**
+- Naver Map API를 연동한 지도 기반 맛집 위치 표시
+- 돈까스 가게 상세 정보 제공 (주소, 영업시간, 메뉴 등)
+- 로그인 없는 익명 리뷰 작성 기능
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**배포 주소:** [https://katsu-yes.vercel.app/](https://katsu-yes.vercel.app/)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🛠️ 기술 스택
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Frontend:** Next.js(v16), TypeScript, Tailwind CSS
+- **State Management:** Zustand, TanStack Query (React Query)
+- **Backend & DB:** Supabase
+- **Deployment:** Vercel
 
-## Learn More
+## 💾 데이터베이스
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+현재 돈까스 가게 데이터베이스는 등록 예정입니다.
