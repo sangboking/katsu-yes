@@ -1,4 +1,4 @@
-import { useQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from '@tanstack/react-query';
 import { supabase } from "@/lib/supabase";
 
 export interface DaySchedule {
@@ -67,17 +67,13 @@ const getKatsuPlaceDetail = async (placeId: number | null) :Promise<placeDetail>
 };
 
 export const useKatsuPlaceDetail = (placeId: number | null) => {
-  return useQuery<placeDetail>({
-    // 1. 쿼리 키: placeId가 바뀔 때마다 새로운 데이터를 가져오거나 캐시를 찾음
+  return useSuspenseQuery<placeDetail>({
     queryKey: ['placeDetail', placeId],
     
-    // 2. 쿼리 함수 호출
-    queryFn: () => getKatsuPlaceDetail(placeId),
+    queryFn: () => {
+      return getKatsuPlaceDetail(placeId);
+    },
     
-    // 3. 핵심! placeId가 있을 때만 API를 호출함
-    enabled: placeId !== null,
-    
-    // 4. 옵션: 상세 정보는 자주 안 변하니 5분 동안은 캐시된 걸 그대로 씀
-    staleTime: 1000 * 60 * 5, 
+    staleTime: Infinity,
   });
 };

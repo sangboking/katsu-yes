@@ -2,16 +2,20 @@
 
 import Script from "next/script";
 import { useRef } from "react";
+
+import SearchBar from "@/components/common/SearchBar";
+
 import type { NaverMapInstance } from "@/types/naver";
 import type { Place } from "@/lib/hook/useKatsuPlaces";
+import { useSideBarState } from "@/store/useSideBarState";
+import { useMapState } from "@/store/useMapState";
 
 const NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_MAP_CLIENT_ID;
 
-import { useModalState } from "@/store/useModalState";
-
 const Home = ({ katsuPlaces }: { katsuPlaces: Place[] }) => {
   const mapElementRef = useRef<HTMLDivElement | null>(null);
-  const { openModal } = useModalState();
+  const { openSideBar } = useSideBarState();
+  const { setMap } = useMapState();
 
   if (!NAVER_CLIENT_ID) {
     return <div>NAVER 지도 클라이언트 ID가 설정되지 않았습니다.</div>;
@@ -64,7 +68,7 @@ const Home = ({ katsuPlaces }: { katsuPlaces: Place[] }) => {
       });
 
       window.naver.maps.Event.addListener(marker, 'click', () => {
-        openModal(place.id);
+        openSideBar(place.id);
       });
     });
   };
@@ -81,19 +85,17 @@ const Home = ({ katsuPlaces }: { katsuPlaces: Place[] }) => {
       zoom: 15,
     });
 
+    setMap(map);
     createMarkers(map);
   };
 
 
   return (
-    <main
-      style={{
-        width: "100vw",
-        height: "100vh",
-        margin: 0,
-        padding: 0,
-      }}
-    >
+    <main className="relative w-screen h-screen m-0 p-0">
+      <div className="absolute top-5 left-1/2 -translate-x-1/2 z-10 w-full px-4">
+        <SearchBar />
+      </div>
+      
       <Script
         src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${NAVER_CLIENT_ID}`}
         strategy="afterInteractive"

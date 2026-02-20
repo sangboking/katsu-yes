@@ -7,7 +7,6 @@ interface ReviewInput {
   reviewText: string;
 }
 
-// 2. API 호출 함수
 const createReview = async (placeId: number | null, { nickname, rating, reviewText }: ReviewInput) => {
   const { data, error } = await supabase
     .from('reviews')
