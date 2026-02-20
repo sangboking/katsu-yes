@@ -1,8 +1,8 @@
-import Script from "next/script";
 import type { Metadata } from "next";
 import { Noto_Sans_KR } from "next/font/google";
 
 import CreateReviewModal from "@/components/modal/CreateReviewModal";
+import { GoogleAdSense } from "@/components/common/GoogleAdsense";
 import QueryProvider from "@/lib/provider/QueryProvider";
 import "./globals.css";
 
@@ -23,12 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <Script
-        async
-        src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4103933024196008`}
-        strategy="afterInteractive" // 페이지 로드 후 실행하여 성능 최적화
-        crossOrigin="anonymous"
-      />
+      <GoogleAdSense />
       <body className={`${notoSansKr.variable} antialiased`}>
         <QueryProvider>
           {children}
