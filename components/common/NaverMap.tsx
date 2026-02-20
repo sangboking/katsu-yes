@@ -1,7 +1,7 @@
 'use client'
 
 import Script from "next/script";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 import SearchBar from "@/components/common/SearchBar";
 
@@ -14,8 +14,18 @@ const NAVER_CLIENT_ID = process.env.NEXT_PUBLIC_NAVER_MAP_CLIENT_ID;
 
 const Home = ({ katsuPlaces }: { katsuPlaces: Place[] }) => {
   const mapElementRef = useRef<HTMLDivElement | null>(null);
-  const { openSideBar } = useSideBarState();
+  const markersRef = useRef<{ id: number; marker: naver.maps.Marker }[]>([]);
+  const { openSideBar, selectedPlaceId } = useSideBarState();
   const { setMap } = useMapState();
+
+  useEffect(() => {
+    if (markersRef.current.length === 0 || !window.naver) return;
+
+    markersRef.current.forEach(({ id, marker }) => {
+      const animation = id === selectedPlaceId ? window.naver.maps.Animation.BOUNCE : null;
+      marker.setAnimation(animation);
+    });
+  }, [selectedPlaceId]);
 
   if (!NAVER_CLIENT_ID) {
     return <div>NAVER 지도 클라이언트 ID가 설정되지 않았습니다.</div>;
@@ -45,6 +55,8 @@ const Home = ({ katsuPlaces }: { katsuPlaces: Place[] }) => {
           anchor: new window.naver.maps.Point(20, 20),
         },
       });
+
+      markersRef.current.push({ id: place.id, marker });
 
       window.naver.maps.Event.addListener(marker, 'mouseover', () => {
         infoWindow.setContent(`
