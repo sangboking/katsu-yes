@@ -33,6 +33,8 @@ const SearchBar = () => {
     moveMap(place.lat, place.lng);
     setKeyword("");
     setQuery("");
+
+    console.log(`${place.lat}, ${place.lng}`);
   };
 
   return (

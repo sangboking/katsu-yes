@@ -87,18 +87,24 @@ const Home = ({ katsuPlaces }: { katsuPlaces: Place[] }) => {
   };
 
   const handleScriptLoad = () => {
-    if (!mapElementRef.current) return;
-    if (typeof window === "undefined") return;
+    if (typeof window === "undefined" || !mapElementRef.current) return;
     if (!window.naver || !window.naver.maps) return;
+
+    if (useMapState.getState().map) {
+      return;
+    }
 
     const center = new window.naver.maps.LatLng(37.5493287, 126.9136246);
 
     const map = new window.naver.maps.Map(mapElementRef.current, {
       center,
       zoom: 15,
+      mapDataControl: false,
     });
 
     setMap(map);
+
+    markersRef.current = [];
     createMarkers(map);
   };
 
