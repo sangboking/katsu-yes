@@ -1,6 +1,6 @@
-import Image from 'next/image';
+import Image from "next/image";
 
-import type { Place } from '@/lib/hook/useKatsuPlaces';
+import type { Place } from "@/lib/hook/useKatsuPlaces";
 
 interface SearchListProps {
   places: Place[];
@@ -26,7 +26,12 @@ const SearchList = ({ places, onItemClick }: SearchListProps) => {
         >
           <div className="relative w-14 h-14 rounded-md overflow-hidden flex-shrink-0 mr-4">
             {place.banner_img ? (
-              <Image src={place.banner_img} alt={place.name} fill style={{ objectFit: 'cover' }} />
+              <Image
+                src={place.banner_img}
+                alt={place.name}
+                fill
+                style={{ objectFit: "cover" }}
+              />
             ) : (
               <div className="w-full h-full bg-gray-200 flex items-center justify-center">
                 <span className="text-xs text-gray-500">No Img</span>

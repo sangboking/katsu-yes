@@ -25,11 +25,11 @@ export const useMapState = create<MapState>((set, get) => ({
   setMap: (map) => set({ map }),
   moveMap: (lat: number, lng: number) => {
     const { map } = get();
-    
+
     // window.naver가 존재하는지도 함께 체크해주는 것이 배포 시 안전합니다.
     if (map && typeof window !== "undefined" && window.naver) {
       const targetPoint = new window.naver.maps.LatLng(lat, lng);
-      
+
       // 이제 map은 NaverMapInstance 타입을 가지므로 panTo를 인식합니다.
       map.panTo(targetPoint);
       map.setZoom(18);

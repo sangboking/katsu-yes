@@ -1,4 +1,4 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { supabase } from "@/lib/supabase";
 
 export interface DaySchedule {
@@ -35,31 +35,39 @@ export interface Review {
 }
 
 export interface placeDetail {
-  id: number;       
+  id: number;
   name: string;
   lat: number;
   lng: number;
-  address:string;
-  phone:string;
-  category:string;
+  address: string;
+  phone: string;
+  category: string;
   opening_hours: OpeningHours;
   menu_items: MenuItem[];
   reviews: Review[];
-  banner_img:string;
+  banner_img: string;
 }
 
-const getKatsuPlaceDetail = async (placeId: number | null) :Promise<placeDetail> => {
+const getKatsuPlaceDetail = async (
+  placeId: number | null,
+): Promise<placeDetail> => {
   if (placeId === null) {
     return {} as placeDetail; // placeId가 null일 경우 빈 객체 반환 (Early Return)
   }
 
-  const { data, error } = await supabase.from('places').select(`
+  const { data, error } = await supabase
+    .from("places")
+    .select(
+      `
     *,
     reviews ( * )
-  `).eq('id', placeId).single();
-  
+  `,
+    )
+    .eq("id", placeId)
+    .single();
+
   if (error) {
-    console.error('데이터 로드 실패:', error.message);
+    console.error("데이터 로드 실패:", error.message);
     return {} as placeDetail; // 에러 시 빈 객체 반환 (Early Return)
   }
 
@@ -68,12 +76,12 @@ const getKatsuPlaceDetail = async (placeId: number | null) :Promise<placeDetail>
 
 export const useKatsuPlaceDetail = (placeId: number | null) => {
   return useSuspenseQuery<placeDetail>({
-    queryKey: ['placeDetail', placeId],
-    
+    queryKey: ["placeDetail", placeId],
+
     queryFn: () => {
       return getKatsuPlaceDetail(placeId);
     },
-    
+
     staleTime: Infinity,
   });
 };

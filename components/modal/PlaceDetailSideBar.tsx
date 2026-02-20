@@ -1,15 +1,15 @@
-'use client'
+"use client";
 
-import { Suspense } from 'react';
+import { Suspense } from "react";
 
-import PlaceDetailSideBarSkeleton from '@/components/skeleton/PlaceDetailSideBarSkeleton';
-import PlaceDetailSideBarContent from '@/components/feature/PlaceDetailSideBarContent';
+import PlaceDetailSideBarSkeleton from "@/components/skeleton/PlaceDetailSideBarSkeleton";
+import PlaceDetailSideBarContent from "@/components/feature/PlaceDetailSideBarContent";
 
-import { useSideBarState } from '@/store/useSideBarState';
+import { useSideBarState } from "@/store/useSideBarState";
 
 const PlaceDetailSideBar = () => {
   const { isOpen, selectedPlaceId, closeSideBar } = useSideBarState();
- 
+
   if (!isOpen || !selectedPlaceId) return null;
 
   return (
@@ -22,7 +22,7 @@ const PlaceDetailSideBar = () => {
       </button>
 
       <Suspense fallback={<PlaceDetailSideBarSkeleton />}>
-        <PlaceDetailSideBarContent selectedPlaceId={selectedPlaceId} />
+        <PlaceDetailSideBarContent />
       </Suspense>
     </div>
   );

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useState } from 'react';
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { useState } from "react";
 
 const QueryProvider = ({ children }: { children: React.ReactNode }) => {
   const [queryClient] = useState(
@@ -15,7 +15,7 @@ const QueryProvider = ({ children }: { children: React.ReactNode }) => {
             retry: false, // 쿼리 실패 시 재시도 비활성화
           },
         },
-      })
+      }),
   );
 
   return (

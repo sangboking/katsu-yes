@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import Script from "next/script";
 import { useEffect, useRef } from "react";
@@ -22,7 +22,8 @@ const Home = ({ katsuPlaces }: { katsuPlaces: Place[] }) => {
     if (markersRef.current.length === 0 || !window.naver) return;
 
     markersRef.current.forEach(({ id, marker }) => {
-      const animation = id === selectedPlaceId ? window.naver.maps.Animation.BOUNCE : null;
+      const animation =
+        id === selectedPlaceId ? window.naver.maps.Animation.BOUNCE : null;
       marker.setAnimation(animation);
     });
   }, [selectedPlaceId]);
@@ -35,10 +36,10 @@ const Home = ({ katsuPlaces }: { katsuPlaces: Place[] }) => {
     if (!map) return;
 
     const infoWindow = new window.naver.maps.InfoWindow({
-      content: '',
+      content: "",
       borderWidth: 0,
       disableAutoPan: true,
-      backgroundColor: 'transparent',
+      backgroundColor: "transparent",
       anchorSize: new window.naver.maps.Size(0, 0),
       pixelOffset: new window.naver.maps.Point(0, -5),
     });
@@ -58,7 +59,7 @@ const Home = ({ katsuPlaces }: { katsuPlaces: Place[] }) => {
 
       markersRef.current.push({ id: place.id, marker });
 
-      window.naver.maps.Event.addListener(marker, 'mouseover', () => {
+      window.naver.maps.Event.addListener(marker, "mouseover", () => {
         infoWindow.setContent(`
           <div style="
             padding: 12px;
@@ -75,11 +76,11 @@ const Home = ({ katsuPlaces }: { katsuPlaces: Place[] }) => {
         infoWindow.open(map, marker);
       });
 
-      window.naver.maps.Event.addListener(marker, 'mouseout', () => {
+      window.naver.maps.Event.addListener(marker, "mouseout", () => {
         infoWindow.close();
       });
 
-      window.naver.maps.Event.addListener(marker, 'click', () => {
+      window.naver.maps.Event.addListener(marker, "click", () => {
         openSideBar(place.id);
       });
     });
@@ -101,23 +102,19 @@ const Home = ({ katsuPlaces }: { katsuPlaces: Place[] }) => {
     createMarkers(map);
   };
 
-
   return (
     <main className="relative w-screen h-screen m-0 p-0">
       <div className="absolute top-5 left-1/2 -translate-x-1/2 z-10 w-full px-4">
         <SearchBar />
       </div>
-      
+
       <Script
         src={`https://oapi.map.naver.com/openapi/v3/maps.js?ncpKeyId=${NAVER_CLIENT_ID}`}
         strategy="afterInteractive"
         onLoad={handleScriptLoad}
       />
 
-      <div
-        ref={mapElementRef}
-        style={{ width: "100%", height: "100%" }}
-      />
+      <div ref={mapElementRef} style={{ width: "100%", height: "100%" }} />
     </main>
   );
 };

@@ -1,8 +1,7 @@
-import NaverMap from '@/components/common/NaverMap'
+import NaverMap from "@/components/common/NaverMap";
 import PlaceDetailSideBar from "@/components/modal/PlaceDetailSideBar";
 
-import getKatsuPlaces from '@/lib/hook/useKatsuPlaces';
-
+import getKatsuPlaces from "@/lib/hook/useKatsuPlaces";
 
 const Home = async () => {
   const katsuPlaces = await getKatsuPlaces();
@@ -10,10 +9,10 @@ const Home = async () => {
   return (
     <div>
       <PlaceDetailSideBar />
-    
+
       <NaverMap katsuPlaces={katsuPlaces} />
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

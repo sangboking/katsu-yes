@@ -30,7 +30,7 @@ export interface NaverMaps {
     options: {
       center: NaverLatLng;
       zoom: number;
-    }
+    },
   ) => NaverMapInstance;
   Marker: new (options: {
     position: NaverLatLng;
@@ -63,7 +63,7 @@ export interface NaverMaps {
     addListener: (
       instance: unknown,
       eventName: string,
-      handler: () => void
+      handler: () => void,
     ) => void;
   };
 }

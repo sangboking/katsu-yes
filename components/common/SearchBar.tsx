@@ -1,20 +1,21 @@
 import { useState } from "react";
 
-import SearchList from '@/components/common/SearchList';
+import SearchList from "@/components/common/SearchList";
 import SearchIcon from "@/components/svg/SearchIcon";
+import Spinner from "@/components/common/Spinner";
 
 import { useSearchKatsuPlaces } from "@/lib/hook/useSeacrKatsuPlace";
-import { useSideBarState } from '@/store/useSideBarState';
+import { useSideBarState } from "@/store/useSideBarState";
 import { useMapState } from "@/store/useMapState";
 import type { Place } from "@/lib/hook/useKatsuPlaces";
 
 const SearchBar = () => {
-  const [keyword, setKeyword] = useState('');
-  const [query, setQuery] = useState('');
+  const [keyword, setKeyword] = useState("");
+  const [query, setQuery] = useState("");
   const { openSideBar } = useSideBarState();
   const { moveMap } = useMapState();
 
-  const { data: searchedPlaces} = useSearchKatsuPlaces(query);
+  const { data: searchedPlaces, isLoading } = useSearchKatsuPlaces(query);
 
   const handleSearch = () => {
     if (!keyword.trim()) return;
@@ -22,7 +23,7 @@ const SearchBar = () => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleSearch();
     }
   };
@@ -30,8 +31,8 @@ const SearchBar = () => {
   const handleItemClick = (place: Place) => {
     openSideBar(place.id);
     moveMap(place.lat, place.lng);
-    setKeyword(''); 
-    setQuery(''); 
+    setKeyword("");
+    setQuery("");
   };
 
   return (
@@ -53,7 +54,13 @@ const SearchBar = () => {
         </div>
       </div>
 
-      {query && searchedPlaces && (
+      {query && isLoading && (
+        <div className="absolute w-full mt-2 p-4 bg-white border border-gray-200 rounded-lg shadow-lg">
+          <Spinner />
+        </div>
+      )}
+
+      {query && !isLoading && searchedPlaces && (
         <div className="absolute w-full mt-2">
           <SearchList places={searchedPlaces} onItemClick={handleItemClick} />
         </div>
