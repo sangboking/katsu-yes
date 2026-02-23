@@ -15,20 +15,17 @@ const CreateReviewModal = () => {
   const { selectedPlaceId } = useSideBarState();
   const { mutate: createReview } = useCreateReview(selectedPlaceId as number);
 
-  const [nickname, setNickname] = useState("");
   const [rating, setRating] = useState<number | null>(null);
   const [reviewText, setReviewText] = useState("");
 
   const handleCreateReview = () => {
     createReview(
       {
-        nickname,
         rating,
         reviewText,
       },
       {
         onSuccess: () => {
-          setNickname("");
           setRating(null);
           setReviewText("");
           closeCreateReviewModal();
@@ -42,12 +39,6 @@ const CreateReviewModal = () => {
       <div className="p-6">
         <h3 className="text-lg font-bold mb-4">리뷰 작성</h3>
         <div className="space-y-4">
-          <Input
-            type="text"
-            placeholder="닉네임을 작성해주세요."
-            value={nickname}
-            onChange={(e) => setNickname(e.target.value)}
-          />
           <div className="flex items-center">
             <strong className="mr-3">평점:</strong>
             <div className="flex space-x-1">

@@ -10,7 +10,7 @@ const PlaceDetailSideBarContent = () => {
   const { selectedPlaceId } = useSideBarState();
 
   return (
-    <div>
+    <div className="text-gray-900">
       <PlaceDetailBasicInfo key={selectedPlaceId} />
 
       <hr className="border-t-8 border-gray-100" />

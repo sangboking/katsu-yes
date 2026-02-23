@@ -6,9 +6,15 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   children: ReactNode;
+  containerClassName?: string;
 }
 
-const Modal = ({ isOpen, onClose, children }: ModalProps) => {
+const Modal = ({
+  isOpen,
+  onClose,
+  children,
+  containerClassName,
+}: ModalProps) => {
   if (!isOpen) return null;
 
   return (
@@ -17,7 +23,9 @@ const Modal = ({ isOpen, onClose, children }: ModalProps) => {
       onClick={onClose}
     >
       <div
-        className="bg-white rounded-2xl shadow-2xl w-full max-w-[600px] overflow-hidden"
+        className={`bg-white rounded-2xl shadow-2xl overflow-hidden ${
+          containerClassName ?? "w-full max-w-[600px]"
+        }`}
         onClick={(e) => e.stopPropagation()}
       >
         {children}

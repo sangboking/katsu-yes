@@ -26,10 +26,10 @@ interface InfoRowProps {
 
 const InfoRow = ({ icon, label, children, action }: InfoRowProps) => (
   <div className="flex items-center py-2">
-    <div className="w-8 flex-shrink-0 flex justify-center mr-3 text-gray-400">
+    <div className="w-8 flex-shrink-0 flex justify-center mr-3 text-gray-500">
       {icon}
     </div>
-    <div className="flex-grow text-sm text-gray-800">
+    <div className="flex-grow text-sm text-gray-900">
       <strong className="font-semibold sr-only">{label}</strong>
       <div>{children}</div>
     </div>
@@ -67,7 +67,7 @@ const PlaceDetailBasicInfo = () => {
             priority
           />
         ) : (
-          <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
+          <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-500">
             이미지 없음
           </div>
         )}

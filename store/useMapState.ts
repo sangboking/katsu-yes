@@ -19,7 +19,7 @@ export const useMapState = create<MapState>((set, get) => ({
         Number(lng),
       );
 
-      map.panTo(targetPoint);
+      map.setCenter(targetPoint);
       map.setZoom(18);
     }
   },

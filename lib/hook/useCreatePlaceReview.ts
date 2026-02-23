@@ -2,26 +2,33 @@ import { supabase } from "@/lib/supabase/client";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 interface ReviewInput {
-  nickname: string;
   rating: number | null;
   reviewText: string;
 }
 
 const createReview = async (
-  placeId: number | null,
-  { nickname, rating, reviewText }: ReviewInput,
+  placeId: number,
+  { rating, reviewText }: ReviewInput,
 ) => {
+  // 🔐 로그인 체크
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    throw new Error("로그인이 필요합니다.");
+  }
+
   const { data, error } = await supabase
     .from("reviews")
     .insert([
       {
         place_id: placeId,
-        nickname: nickname,
         rating: rating,
         review_text: reviewText,
       },
     ])
-    .select(); // 등록 후 생성된 데이터를 반환받기 위해 추가
+    .select();
 
   if (error) throw error;
   return data;

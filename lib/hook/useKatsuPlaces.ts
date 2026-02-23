@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase/client";
+import { createServerSupabase } from "@/lib/supabase/server";
 
 export interface Place {
   id: number;
@@ -10,6 +10,8 @@ export interface Place {
 }
 
 const getKatsuPlaces = async (): Promise<Place[]> => {
+  const supabase = await createServerSupabase();
+
   const { data, error } = await supabase
     .from("places")
     .select("id, name, lat, lng, address, banner_img");

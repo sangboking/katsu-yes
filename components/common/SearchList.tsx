@@ -17,7 +17,7 @@ const SearchList = ({ places, onItemClick }: SearchListProps) => {
   }
 
   return (
-    <ul className="mt-2 w-full max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-y-auto max-h-[50vh]">
+    <ul className="mt-2 w-full max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-y-auto max-h-[50vh] text-gray-900">
       {places.map((place) => (
         <li
           key={place.id}
@@ -40,7 +40,7 @@ const SearchList = ({ places, onItemClick }: SearchListProps) => {
           </div>
           <div className="flex-grow">
             <h3 className="font-semibold text-md">{place.name}</h3>
-            <p className="text-gray-500 text-sm">{place.address}</p>
+            <p className="text-gray-600 text-sm">{place.address}</p>
           </div>
         </li>
       ))}

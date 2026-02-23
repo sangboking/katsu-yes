@@ -44,7 +44,7 @@ const SearchBar = () => {
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
           onKeyDown={handleKeyDown}
-          className="w-full px-5 py-3 pr-12 text-base bg-white border border-gray-200 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+          className="w-full px-5 py-3 pr-12 text-base bg-white text-gray-900 placeholder-gray-500 border border-gray-200 rounded-full shadow-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
         />
         <div
           onClick={handleSearch}
