@@ -82,7 +82,7 @@ const PlaceDetailBasicInfo = () => {
           </span>
           <span className="ml-2 font-semibold">{averageRating.toFixed(1)}</span>
           <span className="ml-2 text-gray-500">
-            ({placeDetail.reviews.length}개의 리뷰)
+            ({placeDetail.reviews?.length}개의 리뷰)
           </span>
         </div>
 

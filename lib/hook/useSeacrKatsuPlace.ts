@@ -1,4 +1,4 @@
-import { supabase } from "@/lib/supabase";
+import { supabase } from "@/lib/supabase/client";
 import { useQuery } from "@tanstack/react-query";
 
 const searchKatsuPlaces = async (keyword: string) => {

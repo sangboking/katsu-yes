@@ -11,6 +11,10 @@ export interface NaverLatLng {
 
 export interface NaverMapInstance {
   [key: string]: unknown;
+  destroy: () => void;
+  setCenter: (latlng: NaverLatLng) => void;
+  setZoom: (level: number) => void;
+  panTo: (latlng: NaverLatLng) => void;
 }
 
 export interface NaverSize {
@@ -30,6 +34,7 @@ export interface NaverMaps {
     options: {
       center: NaverLatLng;
       zoom: number;
+      mapDataControl?: boolean;
     },
   ) => NaverMapInstance;
   Marker: new (options: {

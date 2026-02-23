@@ -1,23 +1,9 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { create } from "zustand";
-
-// 1. 네이버 지도 인스턴스에서 사용할 메서드들을 명시적으로 정의합니다.
-interface NaverMapInstance {
-  panTo: (latlng: any) => void;
-  setZoom: (level: number) => void;
-  setCenter: (latlng: any) => void;
-}
-
-// 2. 전역 window 객체에 대한 타입 에러를 방지합니다.
-declare global {
-  interface Window {
-    naver: any;
-  }
-}
+import type { NaverMapInstance } from "@/types/naver";
 
 interface MapState {
   map: NaverMapInstance | null;
-  setMap: (map: NaverMapInstance) => void;
+  setMap: (map: NaverMapInstance | null) => void;
   moveMap: (lat: number, lng: number) => void;
 }
 
@@ -33,7 +19,7 @@ export const useMapState = create<MapState>((set, get) => ({
         Number(lng),
       );
 
-      map.setCenter(targetPoint);
+      map.panTo(targetPoint);
       map.setZoom(18);
     }
   },
