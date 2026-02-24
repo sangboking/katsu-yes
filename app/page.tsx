@@ -10,17 +10,9 @@ const Home = async () => {
   const katsuPlaces = await getKatsuPlaces();
   const currentUser = await getCurrentUser();
 
-  const name =
-    currentUser &&
-    (currentUser.user_metadata as { name?: string | null })?.name;
-
   return (
     <div>
-      {currentUser ? (
-        <Profile name={name} email={currentUser.email} />
-      ) : (
-        <LoginButton />
-      )}
+      {currentUser ? <Profile /> : <LoginButton />}
 
       <PlaceDetailSideBar />
 

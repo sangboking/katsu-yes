@@ -8,6 +8,10 @@ interface ModalState {
   isLoginRequiredModalOpen: boolean;
   openLoginRequiredModal: () => void;
   closeLoginRequiredModal: () => void;
+
+  isProfileModalOpen: boolean;
+  openProfileModal: () => void;
+  closeProfileModal: () => void;
 }
 
 export const useModalState = create<ModalState>((set) => ({
@@ -18,4 +22,8 @@ export const useModalState = create<ModalState>((set) => ({
   isLoginRequiredModalOpen: false,
   openLoginRequiredModal: () => set({ isLoginRequiredModalOpen: true }),
   closeLoginRequiredModal: () => set({ isLoginRequiredModalOpen: false }),
+
+  isProfileModalOpen: false,
+  openProfileModal: () => set({ isProfileModalOpen: true }),
+  closeProfileModal: () => set({ isProfileModalOpen: false }),
 }));
